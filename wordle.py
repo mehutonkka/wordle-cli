@@ -19,10 +19,14 @@ class Wordle:
         self.d = open("words_ta.txt").read().splitlines()
         lines = open('words_la.txt').read().splitlines()
         self.ascii_lines = open("ascii2.txt").read().splitlines()
+        self.bonsai_lines = open("bonsai.txt").read().splitlines()
+        
+        self.bg = 0
         #a b c d e f g h i j k l m n o p q r s t u v w x y z
         self.dict_ranges = {'a': 7, 'b': 14, 'c': 21, 'd': 28, 'e': 35, 'f': 42, 'g': 49, 'h': 56, 'i': 63, 'j': 70, 'k': 77, 'l': 84, 'm': 91, 'n': 98, 'o': 105, 'p': 112, 'q': 119, 'r': 126, 's': 133, 't': 140, 'u': 147, 'v': 154, 'w': 161, 'x': 168, 'y': 175, 'z': 182, '_': 189}
         self.word_of_day = random.choice(lines)
         self.word_of_day_list = list(self.word_of_day)
+        self.bg_list = self.word_of_day_list.copy()
         self.fields = [
             ["_", "_", "_", "_", "_"], 
             ["_", "_", "_", "_", "_"], 
@@ -83,7 +87,11 @@ class Wordle:
             
             if self.guess[i] == self.word_of_day_list[i]:
                 # green
+                if self.guess[i] in self.bg_list:
+                    self.bg += 27
+                    self.bg_list.remove(self.guess[i])
                 rights[self.guess[i]] -= 1
+                
                 self.fields[self.guess_count][i] = ("\033[32m", self.guess[i])
         for i in range(5):
             if self.fields[self.guess_count][i] != "_":
@@ -117,46 +125,46 @@ class Wordle:
                 letterx = letter[1]
                 letter_range = self.dict_ranges[letterx]
                 for i in range(letter_range, letter_range+7):
-                    remaining_width = 12 - len(self.ascii_lines[i])
+                    
                     line_prints[i-letter_range] += "" + letter[0] + self.ascii_lines[i] + "\033[0m"
             else:
                 
                 letter_range = self.dict_ranges[letter]
                 for i in range(letter_range, letter_range+7):
-                    remaining_width = 12 - len(self.ascii_lines[i])
+                    
                     line_prints[i-letter_range] += "" + self.ascii_lines[i] + ""
         if self.bonsai:
             if index == 1:
-                line_prints[0] += "            " + self.ascii_lines[196]
-                line_prints[1] += "            " + self.ascii_lines[197]
-                line_prints[2] += "            " + self.ascii_lines[198]
-                line_prints[3] += "            " + self.ascii_lines[199]
-                line_prints[4] += "            " + self.ascii_lines[200]
-                line_prints[5] += "            " + self.ascii_lines[201]
-                line_prints[6] += "            " + self.ascii_lines[202]
+                line_prints[0] += "            " + self.bonsai_lines[0+self.bg].encode().decode("unicode_escape")
+                line_prints[1] += "            " + self.bonsai_lines[1+self.bg].encode().decode("unicode_escape")
+                line_prints[2] += "            " + self.bonsai_lines[2+self.bg].encode().decode("unicode_escape")
+                line_prints[3] += "            " + self.bonsai_lines[3+self.bg].encode().decode("unicode_escape")
+                line_prints[4] += "            " + self.bonsai_lines[4+self.bg].encode().decode("unicode_escape")
+                line_prints[5] += "            " + self.bonsai_lines[5+self.bg].encode().decode("unicode_escape")
+                line_prints[6] += "            " + self.bonsai_lines[6+self.bg].encode().decode("unicode_escape")
             elif index == 2:
-                line_prints[0] += "            " + self.ascii_lines[203]
-                line_prints[1] += "            " + self.ascii_lines[204]
-                line_prints[2] += "            " + self.ascii_lines[205]
-                line_prints[3] += "            " + self.ascii_lines[206]
-                line_prints[4] += "            " + self.ascii_lines[207]
-                line_prints[5] += "            " + self.ascii_lines[208]
-                line_prints[6] += "            " + self.ascii_lines[209]
+                line_prints[0] += "            " + self.bonsai_lines[7+self.bg].encode().decode("unicode_escape")
+                line_prints[1] += "            " + self.bonsai_lines[8+self.bg].encode().decode("unicode_escape")
+                line_prints[2] += "            " + self.bonsai_lines[9+self.bg].encode().decode("unicode_escape")
+                line_prints[3] += "            " + self.bonsai_lines[10+self.bg].encode().decode("unicode_escape")
+                line_prints[4] += "            " + self.bonsai_lines[11+self.bg].encode().decode("unicode_escape")
+                line_prints[5] += "            " + self.bonsai_lines[12+self.bg].encode().decode("unicode_escape")
+                line_prints[6] += "            " + self.bonsai_lines[13+self.bg].encode().decode("unicode_escape")
             elif index == 3:
-                line_prints[0] += "            " + self.ascii_lines[210]
-                line_prints[1] += "            " + self.ascii_lines[211]
-                line_prints[2] += "            " + self.ascii_lines[212]
-                line_prints[3] += "            " + self.ascii_lines[213]
-                line_prints[4] += "            " + self.ascii_lines[214]
-                line_prints[5] += "            " + self.ascii_lines[215]
-                line_prints[6] += "            " + self.ascii_lines[216]
+                line_prints[0] += "            " + self.bonsai_lines[14+self.bg].encode().decode("unicode_escape")
+                line_prints[1] += "            " + self.bonsai_lines[15+self.bg].encode().decode("unicode_escape")
+                line_prints[2] += "            " + self.bonsai_lines[16+self.bg].encode().decode("unicode_escape")
+                line_prints[3] += "            " + self.bonsai_lines[17+self.bg].encode().decode("unicode_escape")
+                line_prints[4] += "            " + self.bonsai_lines[18+self.bg].encode().decode("unicode_escape")
+                line_prints[5] += "            " + self.bonsai_lines[19+self.bg].encode().decode("unicode_escape")
+                line_prints[6] += "            " + self.bonsai_lines[20+self.bg].encode().decode("unicode_escape")
             elif index == 4:
-                line_prints[0] += "            " + self.ascii_lines[217]
-                line_prints[1] += "            " + self.ascii_lines[218]
-                line_prints[2] += "            " + self.ascii_lines[219]
-                line_prints[3] += "            " + self.ascii_lines[220]
-                line_prints[4] += "            " + self.ascii_lines[221]
-                line_prints[5] += "            " + self.ascii_lines[222]
+                line_prints[0] += "            " + self.bonsai_lines[21+self.bg].encode().decode("unicode_escape")
+                line_prints[1] += "            " + self.bonsai_lines[22+self.bg].encode().decode("unicode_escape")
+                line_prints[2] += "            " + self.bonsai_lines[23+self.bg].encode().decode("unicode_escape")
+                line_prints[3] += "            " + self.bonsai_lines[24+self.bg].encode().decode("unicode_escape")
+                line_prints[4] += "            " + self.bonsai_lines[25+self.bg].encode().decode("unicode_escape")
+                line_prints[5] += "            " + self.bonsai_lines[26+self.bg].encode().decode("unicode_escape")
         if index == 5:
             row1 = ""
             row2 = ""
